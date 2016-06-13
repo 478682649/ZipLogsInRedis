@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<!--  
+-->
+<channels> 
+    <channel > 
+      <timmer>10</timmer> 
+      <channelName>bde_dns</channelName> 
+      <prefixName>dns</prefixName> 
+      <channelAfterName>bde_after_dns</channelAfterName>
+      <csvName>ts,uid,src_ip,src_port,dest_ip,dest_port,proto,trans_id,query,qclass,qclass_name,qtype,qtype_name,rcode,rcode_name,AA,TC,RD,RA,Z,answers,TTLs,rejected,auth,addl</csvName>
+      <zipName>src_ip,dest_ip,dest_port,query,qtype_name</zipName>
+   </channel> 
+   <channel > 
+      <timmer>15</timmer>  
+      <prefixName>http</prefixName> 
+      <channelName>bde_http</channelName> 
+      <channelAfterName>bde_after_http</channelAfterName>
+      <csvName>ts,uid,src_ip,src_port,dest_ip,dest_port,trans_depth,method,host,uri,referrer,version,user_agent,request_body_len,response_body_len,status_code,status_msg,info_code,info_msg,filename,tags,username,password,proxied,orig_fuids,orig_mime_types,resp_fuids,resp_mime_types,client_header_names,server_header_names,cookie_vars,uri_vars</csvName>
+      <zipName>src_ip,dest_ip,dest_port,info_code,filename</zipName>
+   </channel> 
+</channels> 
