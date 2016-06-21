@@ -1,5 +1,6 @@
 package com.geye.deallogs;
 
+import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -43,9 +44,15 @@ public class ZipDnsLogs extends  TimerTask{
 		Long period = xmlModelinfos.getTimmer();
 		TimerTask  task = new ZipDnsLogs(xmlModelinfo,subJedis);  
 		Timer timer = new Timer();
+		try{
 		//默认通道
 		subJedis.select(0);
-		
+		}
+		catch(Exception e)
+		{
+			System.out.println(new Date()+"首次选择数据库错误");
+			subJedis.select(0);
+		}
 		Listener listener = new Listener(xmlModelinfo,subJedis);
 		
 		timer.scheduleAtFixedRate(task,period*1000, period*1000);
@@ -69,8 +76,15 @@ public class ZipDnsLogs extends  TimerTask{
 		
 		//线程安全
 		chennelNum = ++chennelNum%2;
-		
-		subJedis.select(chennelNum);
+		try{
+			//默认通道
+			subJedis.select(chennelNum);
+			}
+			catch(Exception e)
+			{
+				System.out.println(new Date()+"选择数据库错误");
+				subJedis.select(chennelNum);
+			}
 		//System.out.println("父类数据库id="+subJedis.getDB()+subJedis.toString());
 		TimmerToDo timeToDo = new TimmerToDo();
 		endTime = System.currentTimeMillis();
@@ -81,6 +95,7 @@ public class ZipDnsLogs extends  TimerTask{
 		
 		//放回jedis对象
 		JedisPoolClient.getPool().returnResource(oldsubJedis);
+		
 	}
 	
 	

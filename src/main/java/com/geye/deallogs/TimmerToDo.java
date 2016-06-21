@@ -1,5 +1,6 @@
 package com.geye.deallogs;
 
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Set;
 
@@ -33,15 +34,16 @@ public class TimmerToDo {
 		// System.out.println(dnscsv);
 		try {
 			subJedis.sadd(xmlModelinfo.getPrefixName(), dnscsv);
+			
 		} catch (Exception e) {
-			System.out.println("jedis异常 重新发送数据");
+			System.out.println(new Date() + "jedis异常 重新发送数据");
 			subJedis.sadd(xmlModelinfo.getPrefixName(), dnscsv);
 		}
 		// System.out.println("子类数据库id="+subJedis.getDB()+subJedis.toString());
 		try {
 			subJedis.incr(dnscsv);
 		} catch (Exception e) {
-			System.out.println("jedis异常 重新提交数据");
+			System.out.println(new Date() + "jedis异常 重新提交数据");
 			subJedis.incr(dnscsv);
 		}
 		// jedis.incrBy(key, integer)
